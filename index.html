@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#14112b">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Coffres">
+  <title>Compteur de coffres</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <button id="profileBtn" class="profile-btn" aria-label="Changer de joueur">
+      <span class="avatar" id="avatar">?</span>
+      <span id="profileName">Joueur</span>
+      <span class="chev">▾</span>
+    </button>
+    <div class="total-pill" title="Total toutes parties">
+      <span class="label">Total</span>
+      <strong id="grandTotal">0</strong>
+    </div>
+  </header>
+
+  <main>
+    <!-- Onglet Partie -->
+    <section id="tab-game" class="tab active">
+      <div id="idle" class="idle">
+        <p class="hint">Aucune partie en cours</p>
+        <button id="startBtn" class="btn primary big">Nouvelle partie</button>
+        <p class="last" id="lastGame"></p>
+      </div>
+
+      <div id="playing" class="playing" hidden>
+        <p class="hint">Partie en cours · <span id="elapsed">0:00</span></p>
+        <button id="plusBtn" class="chest-btn" aria-label="Ajouter un coffre">
+          <span class="count" id="gameCount">0</span>
+          <span class="sub">Touchez pour +1 coffre</span>
+        </button>
+        <div class="row">
+          <button id="minusBtn" class="btn ghost">−1</button>
+          <button id="endBtn" class="btn danger">Fin de partie</button>
+        </div>
+        <button id="cancelBtn" class="link">Annuler la partie</button>
+      </div>
+    </section>
+
+    <!-- Onglet Stats -->
+    <section id="tab-stats" class="tab">
+      <div class="grid">
+        <div class="stat"><span class="v" id="sTotal">0</span><span class="k">Coffres au total</span></div>
+        <div class="stat"><span class="v" id="sGames">0</span><span class="k">Parties</span></div>
+        <div class="stat"><span class="v" id="sAvg">0</span><span class="k">Moyenne / partie</span></div>
+        <div class="stat"><span class="v" id="sBest">0</span><span class="k">Record en une partie</span></div>
+        <div class="stat"><span class="v" id="sToday">0</span><span class="k">Aujourd'hui</span></div>
+        <div class="stat"><span class="v" id="sWeek">0</span><span class="k">7 derniers jours</span></div>
+      </div>
+
+      <h2>10 dernières parties</h2>
+      <div id="chart" class="chart"></div>
+
+      <h2>Historique</h2>
+      <ul id="history" class="history"></ul>
+    </section>
+  </main>
+
+  <nav class="tabs">
+    <button data-tab="game" class="active">🎯 Partie</button>
+    <button data-tab="stats">📊 Stats</button>
+  </nav>
+
+  <!-- Feuille Profils -->
+  <div id="sheet" class="sheet" hidden>
+    <div class="sheet-card">
+      <h2>Joueurs</h2>
+      <p class="small">Chaque joueur a ses propres stats. Sur ton téléphone, tes stats restent à toi.</p>
+      <ul id="profileList" class="profile-list"></ul>
+      <form id="addForm" class="add-form">
+        <input id="newName" maxlength="20" placeholder="Nom du joueur" autocomplete="off">
+        <button class="btn primary" type="submit">Ajouter</button>
+      </form>
+      <div class="row wrap">
+        <button id="exportBtn" class="btn ghost">Exporter</button>
+        <label class="btn ghost">Importer<input id="importInput" type="file" accept="application/json" hidden></label>
+      </div>
+      <button id="closeSheet" class="btn">Fermer</button>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" hidden></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
